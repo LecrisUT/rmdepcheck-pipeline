@@ -11,13 +11,9 @@ def pipelineMetadata = [
     pipelineName: 'rmdepcheck',
     pipelineDescription: 'Run rmdepcheck test.',
     testCategory: 'functional',
-    testType: 'installability',
+    testType: 'rmdepcheck',
     maintainer: 'Fedora CI',
     docs: 'https://codeberg.org/AdamWill/rmdepcheck',
-    contact: [
-        irc: '#fedora-ci',
-        email: 'ci@lists.fedoraproject.org'
-    ],
 ]
 def bodhiId
 def artifactIds
