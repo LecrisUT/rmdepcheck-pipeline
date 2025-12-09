@@ -94,10 +94,17 @@ if __name__ == "__main__":
     repo_path: Path = args.workdir / "repo"
     repo_path.mkdir(exist_ok=True)
 
-    match args.action:
-        case "koji-task":
-            koji_task(args, repo_path)
-        case "bodhi-update":
-            bodhi_update(args, repo_path)
-        case _:
-            raise NotImplementedError
+    try:
+        match args.action:
+            case "koji-task":
+                koji_task(args, repo_path)
+            case "bodhi-update":
+                bodhi_update(args, repo_path)
+            case _:
+                raise NotImplementedError
+    except subprocess.CalledProcessError:
+        logger.error("Prepare failed")
+        raise SystemExit(1)
+    except Exception as exc:
+        logger.error("Unexpected prepare failure", exc_info=exc)
+        raise SystemExit(2)
